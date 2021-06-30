@@ -4,20 +4,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class HotelSearch {
+public class HotelSearchTest extends BaseTest {
+
+
     @Test
-    public void searchHotel() throws InterruptedException {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("http://www.kurs-selenium.pl/demo/");
+    public void searchHotelTest() {
 
         //WYSZUKUJEMY OKIENKA DO MIEJSCOWOŚCI 224
         driver.findElement(By.xpath("//span[text()='Search by Hotel or City Name']")).click();
@@ -26,7 +25,7 @@ public class HotelSearch {
         //WYBIERAMY DATY
         driver.findElement(By.name("checkin")).sendKeys("17/04/2021");
         //SPOSÓB 1 - WPISYWANIE DATY RĘCZNIE 225
-       /* driver.findElement(By.name("checkout")).sendKeys("20/04/2021");*/
+        driver.findElement(By.name("checkout")).sendKeys("30/04/2021");
         //SPOSÓB 2 - KLIKANIE W DATĘ 225
         driver.findElement(By.name("checkout")).click();
         /*MÓJ SPOSÓB NA KLIKNIĘCIE 226
@@ -55,9 +54,28 @@ public class HotelSearch {
         Assert.assertEquals("Rose Rayhaan Rotana",hotelNames.get(2));
         Assert.assertEquals("Hyatt Regency Perth",hotelNames.get(3));
 
+    }
+
+    @Test
+    public void NoSearchHotelTest()  {
+
+        //WYSZUKUJEMY OKIENKA DO MIEJSCOWOŚCI 224
+
+        //WYBIERAMY DATY
+        driver.findElement(By.name("checkin")).sendKeys("17/04/2021");
+        driver.findElement(By.name("checkout")).sendKeys("30/04/2021");
 
 
+        // WYBIERANIE ILOŚCI OSÓB - MÓJ SPOSÓB - BARTEK ROBI NA ID 227
+        driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).click();
+        driver.findElement(By.xpath("//*[@id=\"adultMinusBtn\"]")).click();
+        driver.findElement(By.xpath("//*[@id=\"childPlusBtn\"]")).click();
 
+        driver.findElement(By.xpath("//*[@id=\"hotels\"]/form/div[5]/button")).click();
+
+        WebElement noneHotels = driver.findElement(By.xpath("//*[@id=\"body-section\"]/div[5]/div[1]/div[3]/div/div/h2"));
+
+        Assert.assertTrue(noneHotels.isDisplayed());
 
     }
 }
