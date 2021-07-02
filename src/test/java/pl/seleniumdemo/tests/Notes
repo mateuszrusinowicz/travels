@@ -1,0 +1,4 @@
+242. dodwaawnie PageFactory z metodą InitElements
+
+Metoda ta pozwala na wykonywanie działania metod, które wyrzucają błąd,
+ze względu na to, że nie są zwracane w Teście
