@@ -2,3 +2,47 @@
 
 Metoda ta pozwala na wykonywanie działania metod, które wyrzucają błąd,
 ze względu na to, że nie są zwracane w Teście
+
+244.
+przed
+@Test
+    public void NoSearchHotelTest()  {
+
+        //WYSZUKUJEMY OKIENKA DO MIEJSCOWOŚCI 224
+        HotelSearchPage go
+        //WYBIERAMY DATY
+        driver.findElement(By.name("checkin")).sendKeys("17/04/2021");
+        driver.findElement(By.name("checkout")).sendKeys("30/04/2021");
+
+
+        // WYBIERANIE ILOŚCI OSÓB - MÓJ SPOSÓB - BARTEK ROBI NA ID 227
+        driver.findElement(By.xpath("//*[@id=\"travellersInput\"]")).click();
+        driver.findElement(By.xpath("//*[@id=\"adultMinusBtn\"]")).click();
+        driver.findElement(By.xpath("//*[@id=\"childPlusBtn\"]")).click();
+
+        driver.findElement(By.xpath("//*[@id=\"hotels\"]/form/div[5]/button")).click();
+
+        WebElement noneHotels = driver.findElement(By.xpath("//*[@id=\"body-section\"]/div[5]/div[1]/div[3]/div/div/h2"));
+
+        Assert.assertTrue(noneHotels.isDisplayed());
+
+    }
+
+    PO
+
+
+        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
+        hotelSearchPage.setCity("Dubai");
+        hotelSearchPage.setDates("27/04/2021", "29/05/2021");
+        hotelSearchPage.setTravellers(1,2);
+        hotelSearchPage.performSearch();
+
+        ResultPages resultPages = new ResultPages(driver);
+        List<String> hotelNames = resultPages.getHotelNames();
+
+        //DODAJEMY ASERCJE 229
+
+        Assert.assertEquals("Jumeirah Beach Hotel",hotelNames.get(0));
+        Assert.assertEquals("Oasis Beach Tower",hotelNames.get(1));
+        Assert.assertEquals("Rose Rayhaan Rotana",hotelNames.get(2));
+        Assert.assertEquals("Hyatt Regency Perth",hotelNames.get(3));
