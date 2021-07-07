@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pl.seleniumdemo.utils.SeleniumHelper;
 
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class HotelSearchPage {
         searchHotelSpan.click();
         searchHotelInput.sendKeys(cityName);
         String xpath = String.format("//span[@class='select2-match' and text()='%s']", cityName);
+        SeleniumHelper.waitForElementToExist(driver, By.xpath(xpath));
         driver.findElement(By.xpath(xpath)).click();
         logger.info("setting city done");
 
@@ -80,6 +82,7 @@ logger.info("Setting dates checkin: " + checkin + "checkout: " + checkout);
 
     private void addTraveler(WebElement travelerBtn, int numberOfTravelers) {
         for (int i = 0; i < numberOfTravelers; i++) {
+            SeleniumHelper.waitForElementToBeVisible(driver, travelerBtn);
             travelerBtn.click();
         }
 

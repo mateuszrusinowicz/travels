@@ -1,11 +1,13 @@
 package pl.seleniumdemo.tests;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pl.seleniumdemo.pages.HotelSearchPage;
 import pl.seleniumdemo.pages.LoggedUsePage;
 import pl.seleniumdemo.pages.SignUpPage;
+import pl.seleniumdemo.utils.SeleniumHelper;
 
 import java.util.List;
 
@@ -51,7 +53,6 @@ public class SigUpTest extends BaseTest {
         SignUpPage signUpPage = new SignUpPage(driver);
         signUpPage.signUp();
 
-
         //CZESC PIERWSZA PRACY DOMOWEJ - WYSZUKIWANIE BRAKU KOMUNIKATOW
         List<String> findElement = signUpPage.getErrors();
 
@@ -78,7 +79,6 @@ public class SigUpTest extends BaseTest {
         signUpPage.setPassword("Mateusz123");
         signUpPage.confirmPassword("Mateusz123");
         signUpPage.signUp();
-
 
         Assert.assertTrue(signUpPage.getErrors().contains("The Email field must contain a valid email address."));
 

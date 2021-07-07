@@ -97,5 +97,24 @@ public class LoggerTest {
            logger.info("Info");
            logger.debug("Debug");
            logger.trace("Trace");
+    }
+
+Lekcja 261
+Czytanie danych z pliku konfiguracyjnego
+
+Nowy plik config.properties
+Tworzymy nową klasę PropertiesLoader
+public class PropertiesLoader {
+    public  static  String loadProperties(String propertyName) throws IOException {
+        InputStream inputStream = new FileInputStream("src/test/resources/config.properties");
+            Properties properties = new Properties();
+            properties.load(inputStream);
+
+           return properties.getProperty(propertyName);
 
     }
+}
+
+Aw  config.properties dodajemy browser.name=chrome
+                        browser.width=800
+                        browser.height=800
