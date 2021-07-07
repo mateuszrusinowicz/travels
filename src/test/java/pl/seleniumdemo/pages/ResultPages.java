@@ -1,4 +1,5 @@
 package pl.seleniumdemo.pages;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,17 +14,19 @@ public class ResultPages {
 
     @FindBy(xpath = "//*[@id=\"body-section\"]/div[5]/div[1]/div[3]/div/div/h2")
     public WebElement resultHeading;
+
     //NALEŻY DODAĆ ABY METODA BEZ WPROWADZONYCH DANYCH ZADZIAŁAŁA
-    public ResultPages(WebDriver driver){
-            PageFactory.initElements(driver, this);
-}
+    public ResultPages(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+    }
+
     public List<String> getHotelNames() {
         return hotelList.stream().map(el -> el.getAttribute("textContent"))
                 //inny sposob pobierania nazw hoteli(tekstu) - getText przy szybkim pobieraniu nie pobierze całości
                 .collect(Collectors.toList());
     }
 
-    public String getHeadingText(){
+    public String getHeadingText() {
         return resultHeading.getText();
     }
 }
