@@ -3,7 +3,6 @@ package pl.seleniumdemo.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pl.seleniumdemo.model.User;
 import pl.seleniumdemo.pages.HotelSearchPage;
 import pl.seleniumdemo.pages.LoggedUsePage;
 import pl.seleniumdemo.pages.SignUpPage;

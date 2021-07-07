@@ -46,3 +46,56 @@ przed
         Assert.assertEquals("Oasis Beach Tower",hotelNames.get(1));
         Assert.assertEquals("Rose Rayhaan Rotana",hotelNames.get(2));
         Assert.assertEquals("Hyatt Regency Perth",hotelNames.get(3));
+
+Lekcja 257 Uruchamianie testów jednocześnie
+1. Nowy plik testng.xml w travels
+2. <?xml version="1.0" encoding="UTF-8" ?>
+   <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+   <suite name="Travellers">
+       <test name="Hotel Search Test" thread-count="3" parallel="methods">
+           <classes>
+               <class name="pl.seleniumdemo.tests.HotelSearchTest"></class>
+           </classes>
+       </test>
+       <test name="Sigh Up Test" thread-count="3" parallel="methods">
+           <classes>
+               <class name="pl.seleniumdemo.tests.SigUpTest"></class>
+           </classes>
+       </test>
+
+   </suite>
+   3. Należy stworzyć, jednak InteliJ w tej wersji tego nie robi więc wyskakuje błąd...
+
+   259 DODWANIA log4j
+   Dodajemy to w celu wprowadzania logów do dependencji w pliku pom.xml
+ !!W google : "Log4j maven dependency"
+    <dependency>
+       <groupId>org.apache.logging.log4j</groupId>
+       <artifactId>log4j-api</artifactId>
+       <version>2.14.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.apache.logging.log4j</groupId>
+       <artifactId>log4j-core</artifactId>
+       <version>2.14.1</version>
+     </dependency>
+
+     W pages dodajemy :
+         private static final Logger logger = LogManager.getLogger();
+     Następnie dodajemy w teście nowy Dicionatry - resources
+     new file "log4j2.xml"
+
+
+Lekcja 260 - poziomy logów
+
+public class LoggerTest {
+    public static void main(String[] args) {
+        Logger logger = LogManager.getLogger();
+           logger.fatal("Fatal");
+           logger.warn("Warn");
+           logger.error("Error");
+           logger.info("Info");
+           logger.debug("Debug");
+           logger.trace("Trace");
+
+    }
