@@ -1,10 +1,13 @@
 package pl.seleniumdemo.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pl.seleniumdemo.pages.HotelSearchPage;
 import pl.seleniumdemo.pages.ResultPages;
+import pl.seleniumdemo.utils.ExcelReader;
 
+import java.io.IOException;
 import java.util.List;
 
 public class HotelSearchTest extends BaseTest {
@@ -31,6 +34,7 @@ public class HotelSearchTest extends BaseTest {
 
     }
 
+
     @Test
     public void NoSearchHotelTest() {
 
@@ -46,5 +50,26 @@ public class HotelSearchTest extends BaseTest {
 
         Assert.assertTrue(resultPage.resultHeading.isDisplayed());
         Assert.assertEquals(resultPage.getHeadingText(), "No Results Found");
+    }
+    @Test(dataProvider = "data")
+    public void searchHotelTestWithDataProvider(String city, String hotel) {
+
+        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
+        hotelSearchPage.setCity(city);
+        hotelSearchPage.setDates("27/04/2021", "29/05/2021");
+        hotelSearchPage.setTravellers(1, 2);
+        hotelSearchPage.performSearch();
+
+        ResultPages resultPages = new ResultPages(driver);
+        List<String> hotelNames = resultPages.getHotelNames();
+
+        //DODAJEMY ASERCJE 229
+
+        Assert.assertEquals(hotelNames.get(0), hotel);
+
+    }
+    @DataProvider
+    public Object[][] data() throws IOException {
+        return ExcelReader.readExcel("testData.xlsx");
     }
 }
