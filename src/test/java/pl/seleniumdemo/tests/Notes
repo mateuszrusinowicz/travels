@@ -118,3 +118,44 @@ public class PropertiesLoader {
 Aw  config.properties dodajemy browser.name=chrome
                         browser.width=800
                         browser.height=800
+
+Lekcja 266 - dodwanie raportu
+pobieramy z Mavena dependecnję 3.1.5.
+public class BaseTest {
+    protected WebDriver driver;
+    protected static ExtentHtmlReporter htmlReporter;
+    protected static ExtentReports extentReports;
+
+    @BeforeSuite
+    public void beforeSuite(){
+        htmlReporter = new ExtentHtmlReporter("index.html");
+        extentReports = new ExtentReports();
+        extentReports.attachReporter(htmlReporter);
+    }
+
+    @AfterSuite
+    public void afterSuite(){
+        htmlReporter.flush();
+        extentReports.flush();
+    }
+
+    267
+    robienie screenshotów
+W teście
+            ExtentTest test = extentReports.createTest("Sreach hotel test");
+                    test.log(Status.PASS, "Setting city done", SeleniumHelper.getScreenshot(driver));
+W selenium helper
+
+   public static MediaEntityModelProvider getScreenshot(WebDriver driver) throws  IOException{
+        String path = takeScreenshot(driver);
+        return MediaEntityBuilder.createScreenCaptureFromPath(path).build();
+        }
+
+        private static String takeScreenshot(WebDriver driver) throws IOException {
+        int randomNumber = (int) (Math.random()*1000);
+            TakesScreenshot screenshot = (TakesScreenshot)  driver;
+        File file = screenshot.getScreenshotAs(OutputType.FILE);
+        String patch = "src/test/resources/screenshot/screenshot" + randomNumber + ".png";
+            FileUtils.copyFile(file, new File(patch));
+            return patch;
+        }
