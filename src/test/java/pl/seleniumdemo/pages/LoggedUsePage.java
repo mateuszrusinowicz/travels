@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pl.seleniumdemo.utils.SeleniumHelper;
 
-public class LoggedUsePage {
+public class LoggedUsePage   {
 
     @FindBy(xpath = "//h3[@class='RTL']")
     private WebElement heading;
