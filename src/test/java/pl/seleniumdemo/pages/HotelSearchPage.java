@@ -53,7 +53,6 @@ public class HotelSearchPage {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
-
     public void setCity(String cityName) {
         logger.info("setting city" + cityName);
         searchHotelSpan.click();
@@ -62,6 +61,7 @@ public class HotelSearchPage {
         SeleniumHelper.waitForElementToExist(driver, By.xpath(xpath));
         driver.findElement(By.xpath(xpath)).click();
         logger.info("setting city done");
+
 
     }
 
